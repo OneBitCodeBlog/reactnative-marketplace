@@ -51,6 +51,10 @@ userSchema.methods.checkPassword = function (password, callback) {
   })
 }
 
+userSchema.methods.getAverageRating = function () {
+  return this.ratings.reduce((total, current) => total + current.rating, 0) / this.ratings.length
+}
+
 const User = model('User', userSchema)
 
 module.exports = User
