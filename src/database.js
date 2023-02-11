@@ -2,8 +2,11 @@ const mongoose = require("mongoose")
 
 mongoose.set("strictQuery", false)
 
-mongoose.connect(process.env.DATABASE_URL).then(() => {
-  console.log('Connected to MongoDB!')
-}).catch(err => {
-  console.log(err.message)
-})
+function connect() {
+  mongoose.connect(process.env.DATABASE_URL)
+  return mongoose.connection
+}
+
+module.exports = {
+  connect
+}
