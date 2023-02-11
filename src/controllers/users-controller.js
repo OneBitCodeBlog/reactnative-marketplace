@@ -2,12 +2,10 @@ const Product = require("../models/Product")
 const User = require("../models/User")
 
 module.exports = {
-  /** @todo test */
   show: async function (req, res) {
     try {
       const { _id } = req.params
       const user = await User.findById(_id).populate(["favorites.product", "ratings.user"])
-      const averageRating = user.ratings.reduce((total, current) => total + current.rating, 0) / user.ratings.length
       const products = await Product.find({ seller: user })
       return res.json({
         _id: user._id,
@@ -16,7 +14,7 @@ module.exports = {
         phone: user.phone,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
-        averageRating,
+        averageRating: user.getAverageRating(),
         products
       })
     } catch (err) {

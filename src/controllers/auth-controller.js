@@ -37,7 +37,7 @@ module.exports = {
             email: user.email,
             phone: user.phone,
             addresses: user.addresses,
-            ratings: user.ratings,
+            averageRating: user.getAverageRating(),
             favorites: user.favorites
           },
           token
