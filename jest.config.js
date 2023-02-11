@@ -1,5 +1,5 @@
 module.exports = {
   testEnvironment: 'node',
-  setupFiles: ['<rootDir>/test/setup.ts'],
+  setupFiles: ['<rootDir>/test/setup.js'],
   maxWorkers: 1
 };
