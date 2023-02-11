@@ -15,6 +15,7 @@ router.post("/register", authController.register)
 
 router.get("/products", productsController.index)
 router.post("/products", withAuth, productUpload.array("images", 6), productsController.save)
+router.delete("/products/:_id", withAuth, productsController.delete)
 
 router.get("/users/:_id", withAuth, usersController.show)
 
