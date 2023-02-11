@@ -9,11 +9,13 @@ const productFactory = Factory.define(() => ({
   price: faker.commerce.price(),
   category: faker.commerce.department(),
   images: [
-    faker.image.imageUrl(),
-    faker.image.imageUrl(),
-    faker.image.imageUrl(),
-    faker.image.imageUrl()
-  ]
+    { url: faker.image.imageUrl() },
+    { url: faker.image.imageUrl() },
+    { url: faker.image.imageUrl() },
+    { url: faker.image.imageUrl() }
+  ],
+  createdAt: new Date(),
+  updatedAt: new Date()
 }))
 
 module.exports = productFactory

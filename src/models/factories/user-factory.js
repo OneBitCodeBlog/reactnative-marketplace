@@ -11,7 +11,9 @@ const userFactory = Factory.define(() => {
     name: firstName + " " + lastName,
     email: faker.internet.email(firstName),
     password: faker.internet.password(6),
-    phone: faker.phone.number()
+    phone: faker.phone.number(),
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
 })
 
