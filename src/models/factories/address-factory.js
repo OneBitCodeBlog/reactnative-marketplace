@@ -1,7 +1,9 @@
 const { Factory } = require("fishery")
 const { faker } = require("@faker-js/faker")
+const mongoose = require("mongoose")
 
-const userFactory = Factory.define(() => ({
+const addressFactory = Factory.define(() => ({
+  _id: new mongoose.Types.ObjectId(),
   street: faker.address.streetAddress(),
   number: faker.address.buildingNumber(),
   complement: faker.address.secondaryAddress(),
@@ -11,4 +13,4 @@ const userFactory = Factory.define(() => ({
   cep: faker.address.zipCode()
 }))
 
-module.exports = userFactory
+module.exports = addressFactory

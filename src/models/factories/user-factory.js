@@ -7,7 +7,7 @@ const userFactory = Factory.define(() => {
   const lastName = faker.name.lastName()
 
   return {
-    id: new mongoose.Types.ObjectId(),
+    _id: new mongoose.Types.ObjectId(),
     name: firstName + " " + lastName,
     email: faker.internet.email(firstName),
     password: faker.internet.password(6),
