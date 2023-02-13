@@ -23,8 +23,9 @@ router.get("/addresses", withAuth, addressesController.index)
 router.post("/addresses", withAuth, addressesController.save)
 router.delete("/addresses/:_id", withAuth, addressesController.delete)
 
-router.post("/favorites", favoritesController.add)
-router.delete("/favorites/:product_id", favoritesController.remove)
+router.get("/favorites", withAuth, favoritesController.index)
+router.post("/favorites", withAuth, favoritesController.add)
+router.delete("/favorites/:product_id", withAuth, favoritesController.remove)
 
 router.post("/ratings", withAuth, ratingsController.rate)
 

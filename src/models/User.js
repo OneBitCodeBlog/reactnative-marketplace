@@ -19,9 +19,7 @@ const userSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     rating: Number
   }],
-  favorites: [{
-    product: { type: Schema.Types.ObjectId, ref: 'Product' }
-  }],
+  favorites: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 })
