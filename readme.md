@@ -24,9 +24,10 @@ Para executar a API em ambiente de desenvolvimento é preciso ter o Node.js e o 
 
 - ✅ Registro e login de usuários
 - ✅ Autenticação com JWT
-- ❌ Atualizar perfil do usuário
-- ❌ Atualizar senha
-- ✅ Gerenciar endereços do usuário
+- ✅ Atualizar perfil do usuário
+- ✅ Atualizar senha
+- ✅ Gerenciar endereços do usuário (Listar, Adicionar e Remover)
+- ✅ Gerenciar produtos favoritos do usuário (Listar, Adicionar e Remover)
 - ❌ Excluir perfil do usuário
 - ✅ Obter perfil de outro usuário
 - ✅ Avaliar outro usuário
@@ -35,9 +36,22 @@ Para executar a API em ambiente de desenvolvimento é preciso ter o Node.js e o 
 - ❌ Atualizar produto
 - ❌ Atualizar imagens do produto
 - ✅ Excluir produtos
-- ✅ Adicionar e remover produtos favoritos (não testada)
 - ❌ Pesquisar produtos
 
 ## Rotas da API
 
-[em construção]
+- POST   /login
+- POST   /register
+- GET    /products
+- POST   /products
+- DELETE /products/:_id
+- PUT    /profile
+- PUT    /profile/password
+- GET    /users/:_id
+- GET    /addresses
+- POST   /addresses
+- DELETE /addresses/:_id
+- GET    /favorites
+- POST   /favorites
+- DELETE /favorites/:product_id
+- POST   /ratings
