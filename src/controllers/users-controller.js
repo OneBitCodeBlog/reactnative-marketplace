@@ -21,19 +21,4 @@ module.exports = {
       return res.status(400).json({ error: err.message })
     }
   },
-
-  /** @todo implement */
-  update: async function (req, res) {
-
-  },
-
-  /** @todo implement */
-  updatePassword: async function (req, res) {
-
-  },
-
-  /** @todo implement */
-  delete: async function (req, res) {
-
-  }
 }

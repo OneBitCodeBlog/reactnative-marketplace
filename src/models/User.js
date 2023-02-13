@@ -39,14 +39,8 @@ userSchema.pre("save", function (next) {
   }
 })
 
-userSchema.methods.checkPassword = function (password, callback) {
-  bcrypt.compare(password, this.password, (err, isSmae) => {
-    if (err) {
-      callback(err)
-    } else {
-      callback(err, isSmae)
-    }
-  })
+userSchema.methods.checkPassword = function (password) {
+  return bcrypt.compareSync(password, this.password)
 }
 
 userSchema.methods.getAverageRating = function () {

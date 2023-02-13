@@ -20,28 +20,28 @@ module.exports = {
       const user = await User.findOne({ email })
 
       if (!user) {
-        return res.status(401).json({ error: "invalid credentials"})
+        return res.status(401).json({ error: "invalid credentials" })
       }
 
-      user.checkPassword(password, (err, isSame) => {
-        if (!isSame || err) {
-          return res.status(400).json({ error: "invalid credentials"})
-        }
+      const isSame = user.checkPassword(password)
 
-        const token = jwt.sign({ _id: user._id, email: user.email }, jwtSecret, { expiresIn: "7d" })
+      if (!isSame) {
+        return res.status(400).json({ error: "invalid credentials" })
+      }
 
-        return res.json({
-          user: {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            addresses: user.addresses,
-            averageRating: user.getAverageRating(),
-            favorites: user.favorites
-          },
-          token
-        })
+      const token = jwt.sign({ _id: user._id, email: user.email }, jwtSecret, { expiresIn: "7d" })
+
+      return res.json({
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          addresses: user.addresses,
+          averageRating: user.getAverageRating(),
+          favorites: user.favorites
+        },
+        token
       })
     } catch (err) {
       return res.status(400).json({ error: err.message })
