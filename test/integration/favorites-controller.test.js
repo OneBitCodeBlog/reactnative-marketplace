@@ -43,11 +43,11 @@ describe("auth controller", () => {
     const { statusCode, body } = await supertest(app).get("/favorites").set("Authorization", `Bearer ${token}`)
 
     expect(statusCode).toBe(200)
-    expect(body.favorites.length).toBe(2)
-    expect(body.favorites[0]._id).toBe(favoriteProducts[0]._id.toString())
-    expect(body.favorites[0].name).toBe(favoriteProducts[0].name)
-    expect(body.favorites[1]._id).toBe(favoriteProducts[1]._id.toString())
-    expect(body.favorites[1].name).toBe(favoriteProducts[1].name)
+    expect(body.length).toBe(2)
+    expect(body[0]._id).toBe(favoriteProducts[0]._id.toString())
+    expect(body[0].name).toBe(favoriteProducts[0].name)
+    expect(body[1]._id).toBe(favoriteProducts[1]._id.toString())
+    expect(body[1].name).toBe(favoriteProducts[1].name)
   })
 
   test("should not return favorites if no authorization header is provided", async () => {

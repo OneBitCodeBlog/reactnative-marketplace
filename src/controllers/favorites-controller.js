@@ -3,7 +3,7 @@ const User = require("../models/User")
 module.exports = {
   index: async function (req, res) {
     try {
-      const favorites = await User.findById(req.user._id, "favorites").populate("favorites")
+      const { favorites } = await User.findById(req.user._id, "favorites").populate("favorites")
       return res.json(favorites)
     } catch (err) {
       return res.status(400).json({ error: err.message })
