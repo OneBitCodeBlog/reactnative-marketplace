@@ -1,10 +1,20 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, default: mongoose } = require("mongoose");
 
 const productSchema = new Schema({
   name: String,
   description: String,
   price: Number,
   category: String,
+  address: {
+    _id: mongoose.Schema.Types.ObjectId,
+    street: String,
+    number: String,
+    complement: String,
+    district: String,
+    city: String,
+    state: String,
+    cep: String
+  },
   images: [{
     filename: String,
     url: String

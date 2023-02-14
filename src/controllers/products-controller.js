@@ -18,10 +18,11 @@ module.exports = {
 
   save: async function (req, res) {
     try {
-      const { name, price, category } = req.body
+      const { name, description, price, category, addressId } = req.body
+      const address = req.user.addresses.find(addr => addr._id.equals(addressId))
       const images = req.files.map(file => ({ filename: file.filename, url: `uploads/products/${file.filename}` }))
-      const seller = req.user
-      const product = new Product({ name, price, category, images, seller })
+      const seller = req.user._id
+      const product = new Product({ name, description, price, category, address, images, seller })
       await product.save()
       return res.status(201).json(product)
     } catch (err) {
@@ -31,9 +32,16 @@ module.exports = {
     }
   },
 
-  /** @todo implement */
   update: async function (req, res) {
-
+    try {
+      const { _id } = req.params
+      const { name, description, price, category, addressId } = req.body
+      const address = req.user.addresses.find(addr => addr._id.equals(addressId))
+      await Product.findByIdAndUpdate(_id, { $set: { name, description, price, category, address, updatedAt: new Date() }})
+      return res.status(204).end()
+    } catch (err) {
+      return res.status(400).json({ error: err.message })
+    }
   },
 
   delete: async function (req, res) {
