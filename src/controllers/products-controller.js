@@ -60,8 +60,20 @@ module.exports = {
     }
   },
 
-  /** @todo implement */
+  /** @todo test and add route */
   search: async function (req, res) {
-
+    const { name, category } = req.query
+    const minPrice = +req.query.minPrice || 0
+    const maxPrice = +req.query.maxPrice || Number.MAX_SAFE_INTEGER
+    const page = +req.query.page - 1 || 0
+    const limit = +req.query.limit || 20
+    const query = {
+      name: new RegExp(name, "i"),
+      category: new RegExp(category, "i"),
+      price: { $gte: minPrice, $lte: maxPrice }
+    }
+    const products = await Product.find(query).sort({ updatedAt: -1 }).skip(page * limit).limit(limit)
+    const total = await Product.countDocuments(query)
+    return res.json({ total, page, limit, products })
   }
 }

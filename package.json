@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "test": "jest --watch-all"
+    "test": "jest --watch-all",
+    "seed": "node ./src/models/seeders/initial-seed.js"
   },
   "keywords": [],
   "author": "",

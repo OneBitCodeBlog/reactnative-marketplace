@@ -6,7 +6,7 @@ const productFactory = Factory.define(() => ({
   _id: new mongoose.Types.ObjectId(),
   name: faker.commerce.productName(),
   description: faker.commerce.productDescription(),
-  price: faker.commerce.price(),
+  price: +faker.commerce.price(),
   category: faker.commerce.department(),
   images: [
     { url: faker.image.imageUrl() },
