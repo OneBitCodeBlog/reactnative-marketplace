@@ -18,6 +18,7 @@ router.get("/products", productsController.index)
 router.get("/products/search", productsController.search)
 router.post("/products", withAuth, productUpload.array("images", 6), productsController.save)
 router.put("/products/:_id", withAuth, productsController.update)
+router.put("/products/:_id/images", withAuth, productUpload.array("newImages", 6), productsController.updateImages)
 router.delete("/products/:_id", withAuth, productsController.delete)
 
 router.put("/profile", withAuth, profilesController.update)

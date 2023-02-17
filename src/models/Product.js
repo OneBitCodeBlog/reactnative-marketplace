@@ -16,6 +16,7 @@ const productSchema = new Schema({
     cep: String
   },
   images: [{
+    _id: mongoose.Schema.Types.ObjectId,
     filename: String,
     url: String
   }],
