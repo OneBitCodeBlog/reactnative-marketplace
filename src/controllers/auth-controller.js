@@ -8,7 +8,20 @@ module.exports = {
       const { name, email, password, phone } = req.body
       const user = new User({ name, email, password, phone })
       await user.save()
-      return res.status(201).json(user)
+
+      const token = jwt.sign({ _id: user._id, email: user.email }, jwtSecret, { expiresIn: "7d" })
+      return res.status(201).json({
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          addresses: user.addresses,
+          averageRating: user.getAverageRating(),
+          favorites: user.favorites
+        },
+        token
+      })
     } catch (err) {
       return res.status(400).json({ error: err.message })
     }

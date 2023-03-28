@@ -60,6 +60,21 @@ describe("auth controller", () => {
     expect(createdUser.phone).toBe(userInput.phone)
   })
 
+  test("should return a login token when registering", async () => {
+    const userInput = {
+      email: "user@email.com",
+      password: "123456"
+    }
+
+    const response = await supertest(app).post("/register").send(userInput)
+
+    expect(response.statusCode).toBe(201)
+    expect(response.body.user).toBeDefined()
+    expect(response.body.user.email).toBe(userInput.email)
+    expect(response.body.token).toBeDefined()
+    expect(typeof response.body.token).toBe("string")
+  })
+
   test("should not register user without email", async () => {
     const userInput = {
       name: "User Name",
@@ -93,7 +108,7 @@ describe("auth controller", () => {
     const user = new connection.models.User(userInput)
     await user.save()
 
-    const { statusCode, body } = await supertest(app).post("/login").send({ email: userInput.email, password: userInput.password})
+    const { statusCode, body } = await supertest(app).post("/login").send({ email: userInput.email, password: userInput.password })
 
     expect(statusCode).toBe(200)
     expect(body.token).toBeDefined()
@@ -104,7 +119,7 @@ describe("auth controller", () => {
     const user = new connection.models.User(userInput)
     await user.save()
 
-    const { statusCode, body } = await supertest(app).post("/login").send({ email: userInput.email, password: "0000"})
+    const { statusCode, body } = await supertest(app).post("/login").send({ email: userInput.email, password: "0000" })
 
     expect(statusCode).toBe(400)
     expect(body.token).toBeUndefined()
