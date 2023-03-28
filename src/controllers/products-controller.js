@@ -5,7 +5,7 @@ const path = require("node:path")
 module.exports = {
   index: async function (req, res) {
     try {
-      const page = +req.query.page - 1 || 0
+      const page = +req.query.page || 0
       const limit = +req.query.limit || 20
       const query = {}
       const products = await Product.find(query).sort({ updatedAt: -1 }).skip(page * limit).limit(limit)
