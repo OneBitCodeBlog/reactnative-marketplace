@@ -1,10 +1,18 @@
 const { Schema, model, default: mongoose } = require("mongoose");
 
 const productSchema = new Schema({
-  name: String,
+  name: { type: String, required: true },
   description: String,
-  price: Number,
-  category: String,
+  price: { type: Number, required: true },
+  category: {
+    type: String,
+    enum: ["Eletrônicos", "Eletrodomésticos", "Moda e Acessórios", "Pets", "Brinquedos e Jogos", "Casa e Jardim", "Esporte e Lazer", "Automóveis e Veículos"],
+    required: true
+  },
+  published: {
+    type: Boolean,
+    default: true
+  },
   address: {
     _id: mongoose.Schema.Types.ObjectId,
     street: String,

@@ -7,7 +7,7 @@ const productFactory = Factory.define(() => ({
   name: faker.commerce.productName(),
   description: faker.commerce.productDescription(),
   price: +faker.commerce.price(),
-  category: faker.commerce.department(),
+  category: faker.helpers.arrayElement(["Eletrônicos", "Eletrodomésticos", "Moda e Acessórios", "Pets", "Brinquedos e Jogos", "Casa e Jardim", "Esporte e Lazer", "Automóveis e Veículos"]),
   images: [
     { url: faker.image.imageUrl() },
     { url: faker.image.imageUrl() },

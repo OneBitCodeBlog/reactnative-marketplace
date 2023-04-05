@@ -7,7 +7,7 @@ const User = require("../User");
 const Product = require("../Product");
 
 const usersQnty = +process.argv.find(arg => arg.match(/^--users=/))?.replace(/^--users=/, "") || 10
-const productsQnty = +process.argv.find(arg => arg.match(/^--products=/))?.replace(/^--products=/, "") || 40
+const productsQnty = +process.argv.find(arg => arg.match(/^--products=/))?.replace(/^--products=/, "") || 400
 
 const connection = connect()
 

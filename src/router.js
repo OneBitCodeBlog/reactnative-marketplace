@@ -8,11 +8,14 @@ const ratingsController = require("./controllers/ratings-controller")
 const usersController = require("./controllers/users-controller")
 const withAuth = require("./middlewares/auth")
 const { productUpload } = require("./middlewares/upload")
+const categoriesController = require("./controllers/categories-controller")
 
 const router = express.Router()
 
 router.post("/login", authController.login)
 router.post("/register", authController.register)
+
+router.get("/categories", categoriesController.index)
 
 router.get("/products", productsController.index)
 router.get("/products/search", productsController.search)
