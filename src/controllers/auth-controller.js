@@ -18,7 +18,8 @@ module.exports = {
           phone: user.phone,
           addresses: user.addresses,
           averageRating: user.getAverageRating(),
-          favorites: user.favorites
+          favorites: user.favorites,
+          createdAt: user.createdAt
         },
         token
       })
@@ -52,7 +53,8 @@ module.exports = {
           phone: user.phone,
           addresses: user.addresses,
           averageRating: user.getAverageRating(),
-          favorites: user.favorites
+          favorites: user.favorites,
+          createdAt: user.createdAt
         },
         token
       })
