@@ -4,6 +4,7 @@ module.exports = {
   index: async function (req, res) {
     try {
       const products = await Product.aggregate([
+        { $match: { published: true }},
         { $sort: { updatedAt: -1 } },
         { $group: { _id: "$category", products: { $push: "$$ROOT" } } },
         { $project: { products: { $slice: ['$products', 0, 8] } } }

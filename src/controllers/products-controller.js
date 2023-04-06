@@ -7,7 +7,7 @@ module.exports = {
     try {
       const page = +req.query.page || 0
       const limit = +req.query.limit || 20
-      const query = {}
+      const query = { published: true }
       const products = await Product.find(query).sort({ updatedAt: -1 }).skip(page * limit).limit(limit)
       const total = await Product.countDocuments(query)
       return res.json({ total, page, limit, products })
@@ -18,11 +18,11 @@ module.exports = {
 
   save: async function (req, res) {
     try {
-      const { name, description, price, category, addressId } = req.body
+      const { name, description, price, published, category, addressId } = req.body
       const address = req.user.addresses.find(addr => addr._id.equals(addressId))
       const images = req.files?.map(file => ({ filename: file.filename, url: `${process.env.API_URL}/uploads/products/${file.filename}` }))
       const seller = req.user._id
-      const product = new Product({ name, description, price, category, address, images, seller })
+      const product = new Product({ name, description, price, published, category, address, images, seller })
       await product.save()
       return res.status(201).json(product)
     } catch (err) {
@@ -35,9 +35,9 @@ module.exports = {
   update: async function (req, res) {
     try {
       const { _id } = req.params
-      const { name, description, price, category, addressId } = req.body
+      const { name, description, price, published, category, addressId } = req.body
       const address = req.user.addresses.find(addr => addr._id.equals(addressId))
-      await Product.findByIdAndUpdate(_id, { $set: { name, description, price, category, address, updatedAt: new Date() } })
+      await Product.findByIdAndUpdate(_id, { $set: { name, description, price, published, category, address, updatedAt: new Date() } })
       return res.status(204).end()
     } catch (err) {
       return res.status(400).json({ error: err.message })
