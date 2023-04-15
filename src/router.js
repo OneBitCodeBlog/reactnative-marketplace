@@ -9,6 +9,7 @@ const usersController = require("./controllers/users-controller")
 const withAuth = require("./middlewares/auth")
 const { productUpload } = require("./middlewares/upload")
 const categoriesController = require("./controllers/categories-controller")
+const conversationsController = require("./controllers/conversations-controller")
 
 const router = express.Router()
 
@@ -37,5 +38,9 @@ router.post("/favorites", withAuth, favoritesController.add)
 router.delete("/favorites/:product_id", withAuth, favoritesController.remove)
 
 router.post("/ratings", withAuth, ratingsController.rate)
+
+router.get("/conversations", withAuth, conversationsController.index)
+router.post("/conversations", withAuth, conversationsController.save)
+router.post("/conversations/:_id/send", withAuth, conversationsController.send)
 
 module.exports = router
