@@ -19,6 +19,7 @@ Para executar a API em ambiente de desenvolvimento é preciso ter o Node.js e o 
 - Mongoose
 - JSON Web Tokens
 - Multer
+- Socket.io
 
 ## Funcionalidades implementadas
 
@@ -33,15 +34,19 @@ Para executar a API em ambiente de desenvolvimento é preciso ter o Node.js e o 
 - ✅ Avaliar outro usuário
 - ✅ Listar produtos
 - ✅ Criar produtos
-- ❌ Atualizar produto
-- ❌ Atualizar imagens do produto
+- ✅ Atualizar produto
+- ✅ Atualizar imagens do produto
 - ✅ Excluir produtos
-- ❌ Pesquisar produtos
+- ✅ Pesquisar produtos
+- ✅ Obter conversas do usuário
+- ✅ Criar novas conversas
+- ✅ Enviar e receber mensagens em tempo real
 
 ## Rotas da API
 
 - POST   /login
 - POST   /register
+- GET    /categories
 - GET    /products
 - POST   /products
 - DELETE /products/:_id
@@ -55,3 +60,5 @@ Para executar a API em ambiente de desenvolvimento é preciso ter o Node.js e o 
 - POST   /favorites
 - DELETE /favorites/:product_id
 - POST   /ratings
+- GET    /conversations
+- POST   /conversations
