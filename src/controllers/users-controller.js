@@ -1,22 +1,11 @@
-const Product = require("../models/Product")
-const User = require("../models/User")
+const getUserWithProducts = require("../services/get-user-with-products")
 
 module.exports = {
   show: async function (req, res) {
+    const { _id } = req.params
     try {
-      const { _id } = req.params
-      const user = await User.findById(_id).populate(["favorites.product", "ratings.user"])
-      const products = await Product.find({ seller: user })
-      return res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-        averageRating: user.getAverageRating(),
-        products
-      })
+      const user = await getUserWithProducts(_id)
+      return res.json(user)
     } catch (err) {
       return res.status(400).json({ error: err.message })
     }

@@ -1,14 +1,9 @@
-const Product = require("../models/Product")
+const getProductsByCategories = require("../services/get-products-by-categories")
 
 module.exports = {
   index: async function (req, res) {
     try {
-      const products = await Product.aggregate([
-        { $match: { published: true }},
-        { $sort: { updatedAt: -1 } },
-        { $group: { _id: "$category", products: { $push: "$$ROOT" } } },
-        { $project: { products: { $slice: ['$products', 0, 8] } } }
-      ])
+      const products = await getProductsByCategories()
       return res.json(products)
     } catch (err) {
       return res.status(400).json({ error: err.message })
