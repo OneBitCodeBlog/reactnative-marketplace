@@ -1,6 +1,7 @@
 const deleteFiles = require("../helpers/deleteFiles")
 const Product = require("../models/Product")
 const path = require("node:path")
+const User = require("../models/User")
 
 module.exports = {
   index: async function (req, res) {
@@ -9,6 +10,7 @@ module.exports = {
       const limit = +req.query.limit || 20
       const query = { published: true }
       const products = await Product.find(query).sort({ updatedAt: -1 }).skip(page * limit).limit(limit)
+      await User.populate(products, { path: "seller", select: 'name email phone' })
       const total = await Product.countDocuments(query)
       return res.json({ total, page, limit, products })
     } catch (err) {
@@ -97,6 +99,7 @@ module.exports = {
       published: true
     }
     const products = await Product.find(query).sort({ updatedAt: -1 }).skip(page * limit).limit(limit)
+    await User.populate(products, { path: "seller", select: 'name email phone' })
     const total = await Product.countDocuments(query)
     return res.json({ total, page, limit, products })
   }
