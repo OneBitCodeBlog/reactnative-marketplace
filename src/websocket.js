@@ -9,7 +9,7 @@ async function setup(socket) {
     socket.on('message_sent', async data => {
       if (data?.conversationId) {
         const newMessage = await createMessage(data.conversationId, data.message)
-        socket.broadcast.to(data.conversationId).emit("new_message", newMessage)
+        socket.broadcast.to(data.conversationId).emit('new_message', { conversationId: data.conversationId, message: newMessage })
         socket.emit('new_message', { conversationId: data.conversationId, message: newMessage })
       }
     })
