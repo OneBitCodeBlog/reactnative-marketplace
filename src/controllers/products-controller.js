@@ -85,7 +85,7 @@ module.exports = {
   },
 
   search: async function (req, res) {
-    const { name, category } = req.query
+    const { name, category, location } = req.query
     const minPrice = +req.query.minPrice || 0
     const maxPrice = +req.query.maxPrice || Number.MAX_SAFE_INTEGER
     const page = +req.query.page - 1 || 0
@@ -93,7 +93,8 @@ module.exports = {
     const query = {
       name: new RegExp(name, "i"),
       category: new RegExp(category, "i"),
-      price: { $gte: minPrice, $lte: maxPrice }
+      price: { $gte: minPrice, $lte: maxPrice },
+      published: true
     }
     const products = await Product.find(query).sort({ updatedAt: -1 }).skip(page * limit).limit(limit)
     const total = await Product.countDocuments(query)
