@@ -22,7 +22,7 @@ module.exports = {
     try {
       const { name, description, price, published, category, addressId } = req.body
       const address = req.user.addresses.find(addr => addr._id.equals(addressId))
-      const images = req.files?.map(file => ({ filename: file.filename, url: `${process.env.API_URL}/uploads/products/${file.filename}` }))
+      const images = req.files?.map(file => ({ filename: file.filename, url: `${process.env.APP_BASE_URL}/uploads/products/${file.filename}` }))
       const seller = req.user._id
       const product = new Product({ name, description, price, published, category, address, images, seller })
       await product.save()
@@ -50,7 +50,7 @@ module.exports = {
     try {
       const { _id } = req.params
       const _idsToDelete = req.body._idsToDelete?.split("|") ?? []
-      const newImages = req.files?.map(file => ({ filename: file.filename, url: `${process.env.APP_URL}/uploads/products/${file.filename}` })) ?? []
+      const newImages = req.files?.map(file => ({ filename: file.filename, url: `${process.env.APP_BASE_URL}/uploads/products/${file.filename}` })) ?? []
       const product = await Product.findById(_id)
       const imagesTotal = product.images.length - _idsToDelete?.length + newImages?.length
       if (imagesTotal > 6) {
