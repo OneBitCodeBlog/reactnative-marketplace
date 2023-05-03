@@ -87,13 +87,15 @@ module.exports = {
   },
 
   search: async function (req, res) {
-    const { name, category, location } = req.query
+    const { name, category, location, orderBy, direction } = req.query
 
     const nameMatcher = new RegExp(name, "i")
     const categoryMatcher = new RegExp(category, "i")
     const locationMatcher = new RegExp(location, "i")
     const minPrice = +req.query.minPrice || 0
     const maxPrice = +req.query.maxPrice || Number.MAX_SAFE_INTEGER
+    const orderProp = orderBy || "updatedAt"
+    const orderDirection = direction && direction === "asc" ? 1 : -1
 
     const page = +req.query.page - 1 || 0
     const limit = +req.query.limit || 20
@@ -110,7 +112,11 @@ module.exports = {
       published: true
     }
 
-    const products = await Product.find(query).sort({ updatedAt: -1 }).skip(page * limit).limit(limit)
+    const products = await Product
+      .find(query)
+      .sort({ [orderProp]: orderDirection })
+      .skip(page * limit)
+      .limit(limit)
     await User.populate(products, { path: "seller", select: 'name email phone' })
     const total = await Product.countDocuments(query)
     return res.json({ total, page, limit, products })
